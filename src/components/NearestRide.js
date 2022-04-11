@@ -9,7 +9,7 @@ function NearestRide() {
         <img src="https://picsum.photos/200" alt="card-img" />
       </div>
       <div className="card-detail">
-        <p>Ride Id: {data.Ride.id}</p>
+        <p>Ride Id:</p>
         <p>Origin Station:</p>
         <p>station_path:</p>
         <p>Date:</p>
