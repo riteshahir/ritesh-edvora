@@ -1,17 +1,7 @@
 import "../App.css";
 import React from "react";
-const fs = require('fs');
 
 function NearestRide() {
-
-  var data;
-
-  fs.readFile("users.json",(err,data_) => {
-    if(err){
-      throw err;
-    }
-    data=JSON.parse(data_);
-  })
 
   return (
     <div className="card">
