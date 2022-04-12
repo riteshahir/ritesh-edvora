@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 
 export default function UpcomingRides() {
-  return <div className="card">
-  <div className="card-img">
-    <img src="https://picsum.photos/200" alt="card-img" />
-  </div>
-  <div className="card-detail">
-    <p>Ride Id:</p>
-    <p>Origin Station:</p>
-    <p>station_path:</p>
-    <p>Date:</p>
-    <p>Distance:</p>
-  </div>
-  <div className="card-place">
-    <p>city name</p>
-    <p>state name</p>
-  </div>
-</div>
+  const [nearestRides, setNearestRides] = useState([]);
+  useEffect(() => {
+    fetchRideData();
+  }, []);
+  useEffect(() => {
+    console.log(nearestRides);
+  }, [nearestRides]);
+
+  async function fetchRideData() {
+    let res = await fetch("https://assessment.api.vweb.app/rides");
+    let rides = await res.json();
+
+    res = await fetch("https://assessment.api.vweb.app/user");
+    const { station_code } = await res.json();
+    console.log(station_code);
+
+    const date=new Date();
+
+    rides.filter((r,i) => {
+      return r.date>date;
+    })
+
+
+    setNearestRides(rides);
+  }
+
+  return <div>UpcomingRides</div>;
 }
