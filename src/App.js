@@ -1,11 +1,12 @@
 import "./App.css";
 import NearestRide from "./components/NearestRide";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UpcomingRides from "./components/UpcomingRides";
 import PastRides from "./components/PastRides";
 
 function App() {
   const [tab, setTab] = useState("nearest");
+  const [user,setUser]=useState({});
 
   let component = <NearestRide />;
 
@@ -17,14 +18,35 @@ function App() {
     component = <PastRides />;
   }
 
+  useEffect(() =>{
+    fetchData();
+  },{});
+  useEffect(() => {console.log(user)},user);
+
+  var user_name,user_url;
+
+  async function fetchData() {
+    fetch("https://assessment.api.vweb.app/user").then(userData => {
+      return userData.json();
+    }).then(user => {
+      return setUser(user);
+    }).catch(err => {
+      console.log(err);
+    })
+    // let userData = await fetch("https://assessment.api.vweb.app/user");
+    // const user=await userData.json();
+    // setUser(user);
+  }
+
+
   return (
     <div className="App">
       <header className="header">
         <h1>Edvora</h1>
         <div className="profile">
-          <h2>name</h2>
+          <h2>{user.name}</h2>
           <div className="header-img">
-            <img src="https://picsum.photos/200" alt="img" />
+            <img src={user.url} alt="img" />
           </div>
         </div>
       </header>
